@@ -8,17 +8,22 @@ function GenerateBoard(size, numFilledNumbers) {
 	var board = [];
 	board.length = size;
 	
-	for(var i = 0; i < size; i++) {
-		var column = [];
-		column.length = size;		
-		for(var j = 0; j < size; j++) {
-			column[j] = " ";
+	function EmptyBoard(board) {
+		for(var i = 0; i < size; i++) {
+			var column = [];
+			column.length = size;		
+			for(var j = 0; j < size; j++) {
+				column[j] = " ";
+			}
+			
+			board[i] = column;			
 		}
-		
-		board[i] = column;			
 	}
+	
+	EmptyBoard(board);
 
-	while(true) 
+	//for(var attempt = 0; attempt < 5; attempt++)
+	while(true)
 	{
 		for(var i = 0; i < numFilledNumbers; i++) {		
 			var row = RandomRange(0, 4);
@@ -37,6 +42,9 @@ function GenerateBoard(size, numFilledNumbers) {
 		
 		if(IsValid(board))
 			break;
+		else
+			EmptyBoard(board);
+			
 	}
 	return board;
 }
@@ -58,8 +66,7 @@ function IsValid(board) {
 			table[num] = 1;
 		}
 	}
-	
-	
+		
 	// Check each row
 	for(var j = 0; j < board.length; j++) {
 		table = {}
@@ -92,5 +99,5 @@ function PrintBoard(board) {
 	console.log(board)
 }
 
-var board = GenerateBoard(4, 4, 6);
+var board = GenerateBoard(4, 4, 3);
 PrintBoard(board);
